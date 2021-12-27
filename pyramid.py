@@ -36,10 +36,7 @@ def print_pyramid(rows):
         rows = int(rows)
         return build_triangle(rows)
     except ValueError:
-        print("--rows must be an integer")
-        return
-
-    
+        raise ValueError("--rows must be an integer")    
 
 
 if __name__ == "__main__":
