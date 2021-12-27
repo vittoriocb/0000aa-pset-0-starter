@@ -7,9 +7,9 @@ Replace the below with your own build badges:
 
 [![Build Status](https://app.travis-ci.com/vittoriocb/0000aa-pset-0-starter.svg?branch=main)](https://app.travis-ci.com/vittoriocb/0000aa-pset-0-starter)
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/aaaaa/maintainability)](https://codeclimate.com/repos/aaaaa/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/f495bd9e1ed32b7e9e11/maintainability)](https://codeclimate.com/github/vittoriocb/0000aa-pset-0-starter/maintainability)
 
-[![Test Coverage](https://api.codeclimate.com/v1/badges/aaaaa/test_coverage)](https://codeclimate.com/repos/aaaaa/test_coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/f495bd9e1ed32b7e9e11/test_coverage)](https://codeclimate.com/github/vittoriocb/0000aa-pset-0-starter/test_coverage)
 
 ## Objectives
 
