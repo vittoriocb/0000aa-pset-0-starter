@@ -70,9 +70,18 @@ class FibTests(TestCase):
         ss = SummableSequence(0, 1)
         for n in range(0, 50, 5):
             with timeout(message="Timeout running f({})".format(n)):
-                raise NotImplementedError(
-                    "You should implement this and other SummableSequence tests!"
-                )
+
+                self.assertEqual(ss(n), optimized_fibonacci(n))
+    
+    def test_summable_n(self):
+        # Checks that the n rule (where the i-th number is the sum of the previous n numbers in the sequence) is working propery. We can do this predictably with an array of ones
+        for n in range(1, 50, 5):
+            ones = [1 for _ in range(n)]
+            ss = SummableSequence(*ones)
+            with timeout(message="Timeout running f({})".format(n)):
+                self.assertEqual(ss(n), n)
+
+    ## TODO: Implement more SummableSequence tests
 
 
 class TestTimeout(TestCase):
