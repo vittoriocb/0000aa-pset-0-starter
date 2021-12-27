@@ -5,7 +5,7 @@ from io import StringIO
 from time import sleep, time
 from unittest import TestCase, main
 
-from fibonacci import SummableSequence, last_8, optimized_fibonacci, optimized_calculate_seq
+from fibonacci import SummableSequence, last_8, optimized_fibonacci, optimized_calculate_seq, sum_sequence
 from pyramid import print_pyramid
 import fibonacci
 import pyramid
@@ -91,6 +91,31 @@ class FibTests(TestCase):
             ss = SummableSequence(*ones)
             with timeout(message="Timeout running f({})".format(n)):
                 self.assertEqual(ss(n), n)
+
+    def test_summable_calc(self):
+        ss = SummableSequence(5, 7, 11)
+        for n, expected in [
+            # Check progressively more complex values, see if time out
+            (0, 5),
+            (1, 7),
+            (2, 11),
+            (10, 1587),
+            (16, 61445),
+            (20, 703209),
+            (30, 311586659),
+        ]:
+            with timeout(message="Timeout running f({})".format(n)):
+                self.assertEqual(expected, ss(n))
+
+    def test_sum_sequence(self):
+        for seq, expected in [
+            # Check progressively more complex values, see if time out
+            ([1,2,3], 6),
+            ([5,5,5], 15),
+            ([9,5], 14),
+            ([2,10,8,20], 40),
+        ]:
+            self.assertEqual(expected, sum_sequence(len(seq), seq))
 
     def test_main(self):
         # Just check there is output and no exceptions

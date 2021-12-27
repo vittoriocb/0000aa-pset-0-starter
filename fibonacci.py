@@ -12,29 +12,31 @@ import time
   
   
 def optimized_calculate_seq(i, n, initial):
-
     if (i < 0):
         raise ValueError("Only positive numbers allowed")
+    if n > len(initial):
+        raise ValueError("n must not be greater than the initial number of elements")
 
     # If i is in the initial list of numbers then there is no need to calculate it
     if i < len(initial):
         return initial[i]
 
-    if n > len(initial):
-        raise ValueError("n must not be greater than the initial number of elements")
-
     last_calc = initial.copy()
     for _ in range(len(last_calc), i+1):
-        calc = 0
-        # This for allows us to set an arbitrary n (instead of hardcoding the -1 and -2 indexes for n=2 for example)
-        for x in range(1,n+1):
-            calc += last_calc[-x] 
+        calc = sum_sequence(n, last_calc)
         last_calc.append(calc)
-        last_calc.pop(0)
+        last_calc.pop(0) # Keeps list small by removing first element, which is not needed anymore
                 
     r = last_calc[-1]
 
     return r   
+
+def sum_sequence(n, sequence):
+    # Returns the sum of the last n numbers of a list
+    calc = 0
+    for i in range(1,n+1):
+        calc += sequence[-i] 
+    return calc
 
 def optimized_fibonacci(i):
     return optimized_calculate_seq(i, n=2, initial=[0,1])
