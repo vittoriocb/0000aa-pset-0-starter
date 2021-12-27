@@ -75,7 +75,7 @@ class FibTests(TestCase):
 
     def test_check_n(self):
         with self.assertRaises(ValueError):
-            optimized_calculate_seq(5, n=5, initial=[0,1])
+            optimized_calculate_seq(5, num=5, initial=[0,1])
 
     def test_summable(self):
         ss = SummableSequence(0, 1)
