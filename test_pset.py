@@ -52,16 +52,6 @@ def capture_print():
     finally:
         sys.stdout = _stdout
 
-def test_mains(self, main):
-    # Just check there is output and no exceptions
-    with capture_print() as std:
-        main()
-
-    std.seek(0)
-    captured = std.read()
-
-    self.assertEqual(len(captured) > 0, True)
-
 class FibTests(TestCase):
     def test_fibonnacci(self):
         for n, expected in [
@@ -103,7 +93,14 @@ class FibTests(TestCase):
                 self.assertEqual(ss(n), n)
 
     def test_main(self):
-        test_mains(self, fibonacci.main)
+        # Just check there is output and no exceptions
+        with capture_print() as std:
+            fibonacci.main()
+
+        std.seek(0)
+        captured = std.read()
+
+        self.assertEqual(len(captured) > 0, True)
 
     ## TODO: Implement more SummableSequence tests
 
@@ -143,7 +140,14 @@ class PyramidTests(TestCase):
 
     def test_main(self):
         sys.argv = ["--rows 5"]
-        test_mains(self, pyramid.main)
+        # Just check there is output and no exceptions
+        with capture_print() as std:
+            pyramid.main()
+
+        std.seek(0)
+        captured = std.read()
+
+        self.assertEqual(len(captured) > 0, True)
         sys.argv = []
 
 
