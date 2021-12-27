@@ -15,25 +15,31 @@ when generalizing), doing this saves time and memory.
 
 import time
 
+
 def optimized_calculate_seq(i, num, initial):
     if i < 0:
         raise ValueError("Only positive numbers allowed")
     if num > len(initial):
-        raise ValueError("n (num) must not be greater than the initial number of elements")
+        raise ValueError(
+            "n (num) must not be greater than the initial number of elements"
+        )
 
     # If i is in the initial list of numbers then there is no need to calculate it
     if i < len(initial):
         return initial[i]
 
     last_calc = initial.copy()
-    for _ in range(len(last_calc), i+1):
+    for _ in range(len(last_calc), i + 1):
         calc = sum_sequence(num, last_calc)
         last_calc.append(calc)
-        last_calc.pop(0) # Keeps list small by removing first element, which is not needed anymore
+        last_calc.pop(
+            0
+        )  # Keeps list small by removing first element, which is not needed anymore
 
     result = last_calc[-1]
 
     return result
+
 
 def sum_sequence(num, sequence):
     # Returns the sum of the last n (num) numbers of a list
@@ -42,8 +48,10 @@ def sum_sequence(num, sequence):
         calc += sequence[-i]
     return calc
 
+
 def optimized_fibonacci(i):
-    return optimized_calculate_seq(i, num=2, initial=[0,1])
+    return optimized_calculate_seq(i, num=2, initial=[0, 1])
+
 
 def last_8(some_int):
     """Return the last 8 digits of an int
@@ -55,25 +63,27 @@ def last_8(some_int):
     return int(str(some_int)[-8:])
 
 
-class SummableSequence():
+class SummableSequence:
     def __init__(self, *initial):
         self.__initial = list(initial)
         self.__n = len(self.__initial)
 
     def __call__(self, i):
-        return optimized_calculate_seq(i, num = self.__n, initial=self.__initial)
+        return optimized_calculate_seq(i, num=self.__n, initial=self.__initial)
+
 
 def main():
     start = time.perf_counter()
     print("f(100000)[-8:]", last_8(optimized_fibonacci(100000)))
-    stop = time.perf_counter()  - start
+    stop = time.perf_counter() - start
     print("Time elapsed (s)", stop)
 
     start = time.perf_counter()
     new_seq = SummableSequence(5, 7, 11)
     print("new_seq(100000)[-8:]:", last_8(new_seq(100000)))
-    stop = time.perf_counter()  - start
+    stop = time.perf_counter() - start
     print("Time elapsed (s)", stop)
+
 
 if __name__ == "__main__":
     main()

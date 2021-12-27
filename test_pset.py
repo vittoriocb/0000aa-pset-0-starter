@@ -5,7 +5,13 @@ from io import StringIO
 from time import sleep, time
 from unittest import TestCase, main
 
-from fibonacci import SummableSequence, last_8, optimized_fibonacci, optimized_calculate_seq, sum_sequence
+from fibonacci import (
+    SummableSequence,
+    last_8,
+    optimized_fibonacci,
+    optimized_calculate_seq,
+    sum_sequence,
+)
 from pyramid import print_pyramid
 import fibonacci
 import pyramid
@@ -31,7 +37,6 @@ try:
         finally:
             signal.alarm(0)
 
-
 except AttributeError:
 
     @contextmanager
@@ -42,7 +47,6 @@ except AttributeError:
             raise TimeoutError(message)
 
 
-
 @contextmanager
 def capture_print():
     _stdout = sys.stdout
@@ -51,6 +55,7 @@ def capture_print():
         yield sys.stdout
     finally:
         sys.stdout = _stdout
+
 
 class FibTests(TestCase):
     def test_fibonnacci(self):
@@ -75,7 +80,7 @@ class FibTests(TestCase):
 
     def test_check_n(self):
         with self.assertRaises(ValueError):
-            optimized_calculate_seq(5, num=5, initial=[0,1])
+            optimized_calculate_seq(5, num=5, initial=[0, 1])
 
     def test_summable(self):
         ss = SummableSequence(0, 1)
@@ -83,7 +88,7 @@ class FibTests(TestCase):
             with timeout(message="Timeout running f({})".format(n)):
 
                 self.assertEqual(ss(n), optimized_fibonacci(n))
-    
+
     def test_summable_n(self):
         # Checks that the n rule (where the i-th number is the sum of the previous n numbers in the sequence) is working propery. We can do this predictably with an array of ones
         for n in range(1, 50, 5):
@@ -110,10 +115,10 @@ class FibTests(TestCase):
     def test_sum_sequence(self):
         for seq, expected in [
             # Check progressively more complex values, see if time out
-            ([1,2,3], 6),
-            ([5,5,5], 15),
-            ([9,5], 14),
-            ([2,10,8,20], 40),
+            ([1, 2, 3], 6),
+            ([5, 5, 5], 15),
+            ([9, 5], 14),
+            ([2, 10, 8, 20], 40),
         ]:
             self.assertEqual(expected, sum_sequence(len(seq), seq))
 
@@ -161,7 +166,7 @@ class PyramidTests(TestCase):
 
     def test_nonint_error(self):
         with self.assertRaises(ValueError):
-            print_pyramid('test')
+            print_pyramid("test")
 
     def test_main(self):
         sys.argv = ["--rows 5"]
