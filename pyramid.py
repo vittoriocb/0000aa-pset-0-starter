@@ -38,8 +38,7 @@ def print_pyramid(rows):
     except ValueError:
         raise ValueError("--rows must be an integer")    
 
-
-if __name__ == "__main__":
+def main():
     parser = ArgumentParser(
         description=__doc__, formatter_class=RawDescriptionHelpFormatter
     )
@@ -47,3 +46,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     print_pyramid(args.rows)
+
+if __name__ == "__main__":
+    main()

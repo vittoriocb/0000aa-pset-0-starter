@@ -57,9 +57,7 @@ class SummableSequence(object):
     def __call__(self, i):
         return optimized_calculate_seq(i, n = self.__n, initial=self.__initial)
 
-
-if __name__ == "__main__":
-
+def main():
     t0 = time.perf_counter()        
     print("f(100000)[-8:]", last_8(optimized_fibonacci(100000)))
     t1 = time.perf_counter()  - t0
@@ -70,3 +68,7 @@ if __name__ == "__main__":
     print("new_seq(100000)[-8:]:", last_8(new_seq(100000)))
     t1 = time.perf_counter()  - t0
     print("Time elapsed (s)",t1)
+
+if __name__ == "__main__":
+    main()
+

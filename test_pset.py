@@ -7,6 +7,9 @@ from unittest import TestCase, main
 
 from fibonacci import SummableSequence, last_8, optimized_fibonacci, optimized_calculate_seq
 from pyramid import print_pyramid
+import fibonacci
+import pyramid
+
 
 try:
     # Absent on Windows, trigger AttributeError
@@ -39,6 +42,7 @@ except AttributeError:
             raise TimeoutError(message)
 
 
+
 @contextmanager
 def capture_print():
     _stdout = sys.stdout
@@ -48,6 +52,15 @@ def capture_print():
     finally:
         sys.stdout = _stdout
 
+def test_mains(self, main):
+    # Just check there is output and no exceptions
+    with capture_print() as std:
+        main()
+
+    std.seek(0)
+    captured = std.read()
+
+    self.assertEqual(len(captured) > 0, True)
 
 class FibTests(TestCase):
     def test_fibonnacci(self):
@@ -89,6 +102,9 @@ class FibTests(TestCase):
             with timeout(message="Timeout running f({})".format(n)):
                 self.assertEqual(ss(n), n)
 
+    def test_main(self):
+        test_mains(self, fibonacci.main)
+
     ## TODO: Implement more SummableSequence tests
 
 
@@ -124,6 +140,11 @@ class PyramidTests(TestCase):
     def test_nonint_error(self):
         with self.assertRaises(ValueError):
             print_pyramid('test')
+
+    def test_main(self):
+        sys.argv = ["--rows 5"]
+        test_mains(self, pyramid.main)
+        sys.argv = []
 
 
 if __name__ == "__main__":
