@@ -35,27 +35,27 @@ jobs:
       with:
         coverageLocations: ${{github.workspace}}/coverage.xml:coverage.py
 
-  submit:
-    needs: test
-    name: Submit to Canvas
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pipenv
-        pipenv install --deploy
-    - name: Submission
-      env:
-        CANVAS_TOKEN: ${{ secrets.CANVAS_TOKEN }}
-        CANVAS_COURSE_ID: 94811
-        CANVAS_ASSIGNMENT_ID: 500790
-        CANVAS_QUIZ_ID: 229920
-        CANVAS_URL: https://canvas.harvard.edu
-      run: |
-        pipenv run python submit.py
+  # submit:
+  #   needs: test
+  #   name: Submit to Canvas
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/master'
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Set up Python
+  #     uses: actions/setup-python@v2
+  #     with:
+  #       python-version: 3.8
+  #   - name: Install dependencies
+  #     run: |
+  #       python -m pip install --upgrade pipenv
+  #       pipenv install --deploy
+  #   - name: Submission
+  #     env:
+  #       CANVAS_TOKEN: ${{ secrets.CANVAS_TOKEN }}
+  #       CANVAS_COURSE_ID: 94811
+  #       CANVAS_ASSIGNMENT_ID: 500790
+  #       CANVAS_QUIZ_ID: 229920
+  #       CANVAS_URL: https://canvas.harvard.edu
+  #     run: |
+  #       pipenv run python submit.py
