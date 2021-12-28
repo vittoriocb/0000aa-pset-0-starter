@@ -1,6 +1,6 @@
 # pylint: disable=missing-function-docstring
 # pylint: disable=missing-class-docstring
-# pylint: disable=invalid-name
+
 
 """
 Test suites for the assignment
@@ -27,8 +27,8 @@ import pyramid
 
 try:
     # Absent on Windows, trigger AttributeError
-    # pylint: disable=pointless-statement
-    signal.alarm
+
+    signal.alarm  # pylint: disable=pointless-statement
 
     def _timeout(signum, frame):
         raise TimeoutError()
