@@ -17,6 +17,15 @@ import time
 
 
 def optimized_calculate_seq(i, n, initial):
+    """Calculates a sequence of numbers where the ith number is the sum of the
+    previous n numbers in the sequence, with the first n numbers defined
+    arbitrarily.
+
+    :param int i: position of number to calculate
+    :param int n: amount of previous numbers to sum at ith position
+    :param list(int) initial: arbitrary intial sequence of numbers
+    :rtype: int
+    """
     if i < 0:
         raise ValueError("Only positive numbers allowed")
     if n > len(initial):
@@ -40,7 +49,12 @@ def optimized_calculate_seq(i, n, initial):
 
 
 def sum_sequence(n, sequence):
-    # Returns the sum of the last n numbers of a list
+    """Returns the sum of the last n numbers of a list
+
+    :param int n: numbers to sum starting at -1 position
+    :param list(int) sequence: list of numbers
+    :rtype: int
+    """
     calc = 0
     for i in range(1, n + 1):
         calc += sequence[-i]
@@ -48,6 +62,12 @@ def sum_sequence(n, sequence):
 
 
 def optimized_fibonacci(i):
+    """Calculates optimized_calculate_seq for a special case where n=2
+    with the first numbers (0, 1)
+
+    :param int i: position of number to calculate
+    :rtype: int
+    """
     return optimized_calculate_seq(i, n=2, initial=[0, 1])
 
 
@@ -63,6 +83,10 @@ def last_8(some_int):
 
 # pylint: disable=too-few-public-methods
 class SummableSequence:
+    """A sequence where the ith number is the sum of the last n numbers,
+    with an arbitrary defined initial sequence
+    """
+
     def __init__(self, *initial):
         self.__initial = list(initial)
         self.__n = len(self.__initial)
@@ -72,6 +96,7 @@ class SummableSequence:
 
 
 def main():
+    """Main entry point of the program"""
     start = time.perf_counter()
     print("f(100000)[-8:]", last_8(optimized_fibonacci(100000)))
     stop = time.perf_counter() - start
