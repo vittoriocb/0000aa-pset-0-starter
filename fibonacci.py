@@ -62,7 +62,7 @@ def last_8(some_int):
 
     return int(str(some_int)[-8:])
 
-
+# pylint: disable=too-few-public-methods
 class SummableSequence:
     def __init__(self, *initial):
         self.__initial = list(initial)

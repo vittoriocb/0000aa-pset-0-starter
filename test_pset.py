@@ -1,3 +1,11 @@
+# pylint: disable=missing-function-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=invalid-name
+
+"""
+Test suites for the assignment
+"""
+
 import signal
 import sys
 from contextlib import contextmanager
@@ -19,6 +27,7 @@ import pyramid
 
 try:
     # Absent on Windows, trigger AttributeError
+    # pylint: disable=pointless-statement
     signal.alarm
 
     def _timeout(signum, frame):
@@ -32,8 +41,8 @@ try:
         signal.alarm(seconds)
         try:
             yield
-        except TimeoutError:
-            raise TimeoutError(message)
+        except TimeoutError as timeout_error:
+            raise TimeoutError(message) from timeout_error
         finally:
             signal.alarm(0)
 
@@ -90,7 +99,9 @@ class FibTests(TestCase):
                 self.assertEqual(ss(n), optimized_fibonacci(n))
 
     def test_summable_n(self):
-        # Checks that the n rule (where the i-th number is the sum of the previous n numbers in the sequence) is working propery. We can do this predictably with an array of ones
+        # Checks that the n rule (where the i-th number is the
+        # sum of the previous n numbers in the sequence) is
+        # working propery. We can do this predictably with an array of ones
         for n in range(1, 50, 5):
             ones = [1 for _ in range(n)]
             ss = SummableSequence(*ones)
@@ -131,8 +142,6 @@ class FibTests(TestCase):
         captured = std.read()
 
         self.assertEqual(len(captured) > 0, True)
-
-    ## TODO: Implement more SummableSequence tests
 
 
 class TestTimeout(TestCase):
