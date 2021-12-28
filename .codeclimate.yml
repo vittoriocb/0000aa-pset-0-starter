@@ -4,5 +4,8 @@ plugins:
     enabled: true
   pylint:
     enabled: true
+    checks:
+      bad-continuation:
+        enabled: false # Black can handle this. This disable only works here for codeclimate
 exclude_patterns:
 - "submit.py"

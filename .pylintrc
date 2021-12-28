@@ -2,5 +2,5 @@
 
 [MESSAGES CONTROL]
 disable=
-    invalid-name,# Allows using short variables like n and i
-    bad-continuation # Black can handle this
+    invalid-name # Allows using short variables like n and i
+    
