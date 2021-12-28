@@ -4,5 +4,8 @@ plugins:
     enabled: true
   pylint:
     enabled: true
+    checks:
+      invalid-name:
+        enabled: false
 exclude_patterns:
 - "submit.py"
