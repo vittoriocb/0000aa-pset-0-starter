@@ -12,21 +12,17 @@ A pyramid of height 3 would look like:
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 
-def build_triangle(height):
-    # This would be the maximum width of the triangle / size of the base.
-    # All lines should have this total width in number of characters
-    n_max = calculate_line(height)
-
-    for i in range(1, height + 1):
-        num = calculate_line(i)
-        # A simple way to fill empty spaces in a line with our desired character
-        print(("=" * num).center(n_max, "-"))
-
-
 def calculate_line(line_number):
-    # The number of '=' in the line can be defined by the function n = (l - 1)*2 + 1
-    num = (line_number - 1) * 2 + 1
-    return num
+    """Returns the number of '=' on a line
+    The number of '=' in the line can be defined by the function
+    n = (line_number - 1)*2 + 1
+
+    :param int line_number: 1-based line number in the pyramid
+    :rtype: int
+    """
+
+    n = (line_number - 1) * 2 + 1
+    return n
 
 
 def print_pyramid(rows):
@@ -37,12 +33,21 @@ def print_pyramid(rows):
 
     try:
         rows = int(rows)
-        return build_triangle(rows)
+        # This would be the maximum width of the triangle / size of the base.
+        # All lines should have this total width in number of characters
+        n_max = calculate_line(rows)
+
+        for i in range(1, rows + 1):
+            num = calculate_line(i)
+            # A simple way to fill empty spaces in a line with our desired character
+            print(("=" * num).center(n_max, "-"))
+
     except ValueError as val_error:
         raise ValueError("--rows must be an integer") from val_error
 
 
 def main():
+    """Main entry point of the program"""
     parser = ArgumentParser(
         description=__doc__, formatter_class=RawDescriptionHelpFormatter
     )
