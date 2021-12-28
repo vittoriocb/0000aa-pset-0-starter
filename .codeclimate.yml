@@ -6,6 +6,8 @@ plugins:
     enabled: true
     checks:
       invalid-name:
-        enabled: false
+        enabled: false # Allows using short variables like n and i
+      bad-continuation:
+        enabled: false # Black can handle this
 exclude_patterns:
 - "submit.py"
