@@ -80,7 +80,7 @@ class FibTests(TestCase):
             (40, 102334155),
             (100, 354224848179261915075),
         ]:
-            with timeout(message="Timeout running f({})".format(n)):
+            with timeout(message=f"Timeout running f({n})"):
                 self.assertEqual(expected, optimized_fibonacci(n))
 
     def test_no_negative(self):
@@ -94,7 +94,7 @@ class FibTests(TestCase):
     def test_summable(self):
         ss = SummableSequence(0, 1)
         for n in range(0, 50, 5):
-            with timeout(message="Timeout running f({})".format(n)):
+            with timeout(message=f"Timeout running f({n})"):
 
                 self.assertEqual(ss(n), optimized_fibonacci(n))
 
@@ -105,7 +105,7 @@ class FibTests(TestCase):
         for n in range(1, 50, 5):
             ones = [1 for _ in range(n)]
             ss = SummableSequence(*ones)
-            with timeout(message="Timeout running f({})".format(n)):
+            with timeout(message=f"Timeout running f({n})"):
                 self.assertEqual(ss(n), n)
 
     def test_summable_calc(self):
@@ -120,7 +120,7 @@ class FibTests(TestCase):
             (20, 703209),
             (30, 311586659),
         ]:
-            with timeout(message="Timeout running f({})".format(n)):
+            with timeout(message=f"Timeout running f({n})"):
                 self.assertEqual(expected, ss(n))
 
     def test_sum_sequence(self):
