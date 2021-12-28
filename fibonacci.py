@@ -16,13 +16,11 @@ when generalizing), doing this saves time and memory.
 import time
 
 
-def optimized_calculate_seq(i, num, initial):
+def optimized_calculate_seq(i, n, initial):
     if i < 0:
         raise ValueError("Only positive numbers allowed")
-    if num > len(initial):
-        raise ValueError(
-            "n (num) must not be greater than the initial number of elements"
-        )
+    if n > len(initial):
+        raise ValueError("n must not be greater than the initial number of elements")
 
     # If i is in the initial list of numbers then there is no need to calculate it
     if i < len(initial):
@@ -30,7 +28,7 @@ def optimized_calculate_seq(i, num, initial):
 
     last_calc = initial.copy()
     for _ in range(len(last_calc), i + 1):
-        calc = sum_sequence(num, last_calc)
+        calc = sum_sequence(n, last_calc)
         last_calc.append(calc)
         last_calc.pop(
             0
@@ -41,16 +39,16 @@ def optimized_calculate_seq(i, num, initial):
     return result
 
 
-def sum_sequence(num, sequence):
-    # Returns the sum of the last n (num) numbers of a list
+def sum_sequence(n, sequence):
+    # Returns the sum of the last n numbers of a list
     calc = 0
-    for i in range(1, num + 1):
+    for i in range(1, n + 1):
         calc += sequence[-i]
     return calc
 
 
 def optimized_fibonacci(i):
-    return optimized_calculate_seq(i, num=2, initial=[0, 1])
+    return optimized_calculate_seq(i, n=2, initial=[0, 1])
 
 
 def last_8(some_int):
@@ -62,6 +60,7 @@ def last_8(some_int):
 
     return int(str(some_int)[-8:])
 
+
 # pylint: disable=too-few-public-methods
 class SummableSequence:
     def __init__(self, *initial):
@@ -69,7 +68,7 @@ class SummableSequence:
         self.__n = len(self.__initial)
 
     def __call__(self, i):
-        return optimized_calculate_seq(i, num=self.__n, initial=self.__initial)
+        return optimized_calculate_seq(i, n=self.__n, initial=self.__initial)
 
 
 def main():
