@@ -16,9 +16,8 @@ from unittest import TestCase, main
 from fibonacci import (
     SummableSequence,
     last_8,
-    optimized_fibonacci,
     optimized_calculate_seq,
-    sum_sequence,
+    optimized_fibonacci,
 )
 from pyramid import print_pyramid
 import fibonacci
@@ -87,15 +86,18 @@ class FibTests(TestCase):
         with self.assertRaises(ValueError):
             optimized_fibonacci(-1)
 
-    def test_check_n(self):
-        with self.assertRaises(ValueError):
-            optimized_calculate_seq(5, n=5, initial=[0, 1])
+    def test_special_n(self):
+        for res, expected in [
+            (optimized_calculate_seq(3, [1, 2, 4]), 7),
+            (optimized_calculate_seq(3, [1, 2, 4], n=5), 7),
+            (optimized_calculate_seq(3, [1, 2, 4], n=-1), 7),
+        ]:
+            self.assertEqual(res, expected)
 
     def test_summable(self):
         ss = SummableSequence(0, 1)
         for n in range(0, 50, 5):
             with timeout(message=f"Timeout running f({n})"):
-
                 self.assertEqual(ss(n), optimized_fibonacci(n))
 
     def test_summable_n(self):
@@ -122,16 +124,6 @@ class FibTests(TestCase):
         ]:
             with timeout(message=f"Timeout running f({n})"):
                 self.assertEqual(expected, ss(n))
-
-    def test_sum_sequence(self):
-        for seq, expected in [
-            # Check progressively more complex values, see if time out
-            ([1, 2, 3], 6),
-            ([5, 5, 5], 15),
-            ([9, 5], 14),
-            ([2, 10, 8, 20], 40),
-        ]:
-            self.assertEqual(expected, sum_sequence(len(seq), seq))
 
     def test_main(self):
         # Just check there is output and no exceptions
