@@ -16,7 +16,7 @@ when generalizing), doing this saves time and memory.
 import time
 
 
-def optimized_calculate_seq(i, n, initial):
+def optimized_calculate_seq(i, initial, n=None):
     """Calculates a sequence of numbers where the ith number is the sum of the
     previous n numbers in the sequence, with the first n numbers defined
     arbitrarily.
@@ -26,10 +26,16 @@ def optimized_calculate_seq(i, n, initial):
     :param list(int) initial: arbitrary intial sequence of numbers
     :rtype: int
     """
+
+    # I was not sure whether n could be defined arbitrarily or is always len(initial)
+    # so I added the optional parameter for more flexibility
+
+    # Default n to len(initial) if there are unsupported cases, or undefined
+    if (n is None) or (n < 0) or (n > len(initial)):
+        n = len(initial)
+
     if i < 0:
         raise ValueError("Only positive numbers allowed")
-    if n > len(initial):
-        raise ValueError("n must not be greater than the initial number of elements")
 
     # If i is in the initial list of numbers then there is no need to calculate it
     if i < len(initial):
@@ -37,28 +43,14 @@ def optimized_calculate_seq(i, n, initial):
 
     last_calc = initial.copy()
     for _ in range(len(last_calc), i + 1):
-        calc = sum_sequence(n, last_calc)
+        calc = sum(last_calc[-n:])  # Returns the sum of the last n numbers of the list
         last_calc.append(calc)
-        last_calc.pop(
-            0
-        )  # Keeps list small by removing first element, which is not needed anymore
+        # Keeps list small by removing first element, which is not needed anymore
+        last_calc.pop(0)  # Black adds this weird spacing
 
     result = last_calc[-1]
 
     return result
-
-
-def sum_sequence(n, sequence):
-    """Returns the sum of the last n numbers of a list
-
-    :param int n: numbers to sum starting at -1 position
-    :param list(int) sequence: list of numbers
-    :rtype: int
-    """
-    calc = 0
-    for i in range(1, n + 1):
-        calc += sequence[-i]
-    return calc
 
 
 def optimized_fibonacci(i):
