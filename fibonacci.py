@@ -43,10 +43,11 @@ def optimized_calculate_seq(i, initial, n=None):
 
     last_calc = initial.copy()
     for _ in range(len(last_calc), i + 1):
-        calc = sum(last_calc[-n:])  # Returns the sum of the last n numbers of the list
-        last_calc.append(calc)
+        # Sum of the last n numbers of the list
+        sum_n = sum(last_calc[n * -1 :])
+        last_calc.append(sum_n)
         # Keeps list small by removing first element, which is not needed anymore
-        last_calc.pop(0)  # Black adds this weird spacing
+        last_calc.pop(0)
 
     result = last_calc[-1]
 
