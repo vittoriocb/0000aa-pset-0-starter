@@ -82,17 +82,16 @@ class FibTests(TestCase):
             with timeout(message=f"Timeout running f({n})"):
                 self.assertEqual(expected, optimized_fibonacci(n))
 
-    def test_no_negative(self):
-        with self.assertRaises(ValueError):
-            optimized_fibonacci(-1)
+    def test_optimized_calculate_seq_asserts(self):
+        with self.assertRaises(AssertionError):
+            _ = [
+                optimized_calculate_seq(-1, [1, 2, 4]),
+                optimized_calculate_seq(3, [1, 2, 4], n=5),
+                optimized_calculate_seq(3, [1, 2, 4], n=-1),
+            ]
 
-    def test_special_n(self):
-        for res, expected in [
-            (optimized_calculate_seq(3, [1, 2, 4]), 7),
-            (optimized_calculate_seq(3, [1, 2, 4], n=5), 7),
-            (optimized_calculate_seq(3, [1, 2, 4], n=-1), 7),
-        ]:
-            self.assertEqual(res, expected)
+    def test_optimized_calculate_seq_none_n(self):
+        self.assertEqual(optimized_calculate_seq(3, [1, 2, 4], n=None), 7)
 
     def test_summable(self):
         ss = SummableSequence(0, 1)
