@@ -29,18 +29,21 @@ def optimized_calculate_seq(i, initial, n=None):
     # I was not sure whether n could be defined arbitrarily or is always len(initial)
     # so I added the optional parameter for more flexibility
 
+    len_initial = len(initial)
     # Default n to len(initial) if None
-    n = n or len(initial)
+    n = n or len_initial
 
-    assert (i >= 0, n >= 0), "i, n must be 0 or more"
-    assert n <= len(initial), "n must be equal or smaller than len(initial)"
+    # Single assert, reduces cyclomatic complexity
+    assert (
+        i >= 0 and 0 <= n <= len_initial
+    ), "i, n must be 0 or more, and n must be equal or smaller than len(initial)"
 
     # If i is in the initial list of numbers then there is no need to calculate it
-    if i < len(initial):
+    if i < len_initial:
         return initial[i]
 
     last_calc = initial.copy()
-    for _ in range(len(last_calc), i + 1):
+    for _ in range(len_initial, i + 1):
         # Sum of the last n numbers of the list
         sum_n = sum(last_calc[n * -1 :])
         last_calc.append(sum_n)

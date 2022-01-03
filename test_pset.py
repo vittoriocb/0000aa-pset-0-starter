@@ -85,9 +85,11 @@ class FibTests(TestCase):
     def test_optimized_calculate_seq_asserts(self):
         with self.assertRaises(AssertionError):
             _ = [
+                # i, n must be 0 or more
                 optimized_calculate_seq(-1, [1, 2, 4]),
-                optimized_calculate_seq(3, [1, 2, 4], n=5),
                 optimized_calculate_seq(3, [1, 2, 4], n=-1),
+                # n must be equal or smaller than len(initial)
+                optimized_calculate_seq(3, [1, 2, 4], n=5),
             ]
 
     def test_optimized_calculate_seq_none_n(self):
